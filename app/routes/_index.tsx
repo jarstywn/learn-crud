@@ -1,16 +1,7 @@
-import type { LoaderFunctionArgs } from "react-router";
-import { createClient } from "~/lib/supabase.server";
-
 export function meta() {
   return [{ title: "Hello world!" }];
 }
 
-export async function loader({ request }: LoaderFunctionArgs) {
-  const { supabase } = createClient(request);
-
-  const { data } = await supabase.from("notes").select();
-  console.log(data);
-}
 
 export default function Page() {
   return (
