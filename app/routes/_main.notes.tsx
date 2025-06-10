@@ -29,26 +29,32 @@ export default function NotesPage() {
         </Link>
       </section>
       <section className="py-5 space-y-5">
-        {notes?.map((note) => (
-          <Link
-            to={`/note/${note.id}`}
-            key={note.id}
-            className="w-full p-5 h-48 border border-white/30 flex flex-col justify-between"
-          >
-            <section>
-              <h3 className="line-clamp-1 whitespace-pre-line text-white font-semibold">
-                {note.title}
-              </h3>
-              <p className="line-clamp-3 whitespace-pre-line text-white/70">
-                {note.content}
-              </p>
-            </section>
-            <section className="text-sm text-white/20 flex items-center justify-end gap-1">
-              <TimerIcon size={15} />
-              <span>{DateTime.fromISO(note.created_at).toRelative()}</span>
-            </section>
-          </Link>
-        ))}
+        {notes && notes.length > 0 ? (
+          notes.map((note) => (
+            <Link
+              to={`/note/${note.id}`}
+              key={note.id}
+              className="w-full p-5 h-48 border border-white/30 flex flex-col justify-between"
+            >
+              <section>
+                <h3 className="line-clamp-1 whitespace-pre-line text-white font-semibold">
+                  {note.title}
+                </h3>
+                <p className="line-clamp-3 whitespace-pre-line text-white/70">
+                  {note.content}
+                </p>
+              </section>
+              <section className="text-sm text-white/20 flex items-center justify-end gap-1">
+                <TimerIcon size={15} />
+                <span>{DateTime.fromISO(note.created_at).toRelative()}</span>
+              </section>
+            </Link>
+          ))
+        ) : (
+          <div className="text-center py-10">
+            <p className="font-bold text-2xl">You don't have any notes yet </p>
+          </div>
+        )}
       </section>
     </main>
   );
