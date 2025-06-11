@@ -48,6 +48,9 @@ export default function NotePage() {
       </section>
       <section className="space-y-3 py-10">
         <h1 className="font-semibold text-xl text-white">{note?.title}</h1>
+        {note?.image ? (
+          <img className="w-6/12" src={note.image} alt={note.title} />
+        ) : null}
         <p className="text-white/85 whitespace-pre-line">{note?.content}</p>
       </section>
       <section className="flex items-center justify-between ">
