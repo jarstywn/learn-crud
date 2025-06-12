@@ -1,13 +1,15 @@
 import { Camera, PenBox } from "lucide-react";
-import type { LoaderFunctionArgs } from "react-router";
-import { data, useLoaderData } from "react-router";
-import { redirect, useFetcher } from "react-router";
-import { type ActionFunctionArgs } from "react-router";
+import type {
+  LoaderFunctionArgs,
+  MetaFunction,
+  ActionFunctionArgs,
+} from "react-router";
+import { data, useLoaderData, useFetcher, redirect } from "react-router";
 import { createClient } from "~/lib/supabase.server";
 
-export function meta() {
-  return [{ title: "Edit" }];
-}
+export const meta: MetaFunction<typeof loader> = ({ data }) => {
+  return [{ title: data?.title }];
+};
 
 export async function action({ params, request }: ActionFunctionArgs) {
   const { supabase } = createClient(request);

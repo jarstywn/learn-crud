@@ -1,13 +1,12 @@
 import { ArrowLeftCircle, PenBox, Save, TimerIcon, Trash } from "lucide-react";
 import { DateTime } from "luxon";
-import { data } from "react-router";
-import { useFetcher } from "react-router";
-import { Link, useLoaderData, type LoaderFunctionArgs } from "react-router";
+import type { MetaFunction, LoaderFunctionArgs } from "react-router";
+import { Link, useLoaderData, data, useFetcher } from "react-router";
 import { createClient } from "~/lib/supabase.server";
 
-export function meta() {
-  return [{ title: "Note" }];
-}
+export const meta: MetaFunction<typeof loader> = ({ data }) => {
+  return [{ title: data?.title }];
+};
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { id } = params;
