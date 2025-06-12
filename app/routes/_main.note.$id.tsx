@@ -1,6 +1,7 @@
 import { ArrowLeftCircle, PenBox, Save, TimerIcon, Trash } from "lucide-react";
 import { DateTime } from "luxon";
-import { redirect, useFetcher, type ActionFunctionArgs } from "react-router";
+import { data } from "react-router";
+import { useFetcher } from "react-router";
 import { Link, useLoaderData, type LoaderFunctionArgs } from "react-router";
 import { createClient } from "~/lib/supabase.server";
 
@@ -8,27 +9,18 @@ export function meta() {
   return [{ title: "Note" }];
 }
 
-export async function action({ request, params }: ActionFunctionArgs) {
-  const { id } = params;
-  const { supabase } = createClient(request);
-
-  await supabase
-    .from("notes")
-    .delete()
-    .eq("id", id as string);
-
-  return redirect("/notes");
-}
-
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { id } = params;
   const { supabase } = createClient(request);
 
-  const { data: note } = await supabase
+  const { data: note, error } = await supabase
     .from("notes")
     .select("*")
     .eq("id", id as string)
     .single();
+
+  if (error && !note) throw data("Note not found!", { status: 404 });
+
   return note;
 }
 

@@ -1,6 +1,6 @@
 import { Camera, PenBox } from "lucide-react";
 import type { LoaderFunctionArgs } from "react-router";
-import { useLoaderData } from "react-router";
+import { data, useLoaderData } from "react-router";
 import { redirect, useFetcher } from "react-router";
 import { type ActionFunctionArgs } from "react-router";
 import { createClient } from "~/lib/supabase.server";
@@ -31,12 +31,12 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   const { supabase } = createClient(request);
   const { id } = params;
 
-  const { data: note } = await supabase
+  const { error, data: note } = await supabase
     .from("notes")
     .select("*")
     .eq("id", id as string)
     .single();
-
+  if (error && !note) throw data("Note not found!", { status: 404 });
   return note;
 }
 
