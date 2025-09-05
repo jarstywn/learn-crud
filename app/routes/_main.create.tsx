@@ -76,7 +76,7 @@ export default function CreatePage() {
           />
 
           {imagePick ? (
-            <div className="w-4/12 relative">
+            <div className="w-full rounded-md relative">
               <button
                 onClick={() => {
                   setImagePick(null);
@@ -86,7 +86,7 @@ export default function CreatePage() {
               >
                 <X size={15} />
               </button>
-              <img src={URL.createObjectURL(imagePick)} />
+              <img src={URL.createObjectURL(imagePick)} className="object-cover"/>
             </div>
           ) : null}
 

@@ -28,28 +28,28 @@ export default function NotesPage() {
           Create
         </Link>
       </section>
-      <section className="py-5 space-y-5">
+      <section className="py-5 grid grid-cols-2 gap-5">
         {notes && notes.length > 0 ? (
           notes.map((note) => (
             <Link
               to={`/note/${note.id}`}
               key={note.id}
-              className="w-full p-5 h-50 border border-white/30 flex flex-col justify-between"
+              className="bg-zinc-950 w-full p-5 h-50 border border-white/30 flex flex-col justify-between relative rounded-md"
             >
               <section>
                 <h3 className="line-clamp-1 whitespace-pre-line text-white font-semibold">
                   {note.title}
                 </h3>
-                <div className="grid grid-cols-5 items-start">
+                <div className="grid grid-cols-5 items-start ">
                   <div className="col-span-4 ">
                     <span className="line-clamp-3 whitespace-pre-line text-white/70">
                       {note.content}
                     </span>
                   </div>
                   {note.image ? (
-                    <div className="w-full h-full">
+                    <div className="absolute inset-0 z-1 opacity-30 w-full h-full">
                       <img
-                        className="w-full h-full object-cover"
+                        className="inset-0 w-full h-full object-cover object-top"
                         src={note.image}
                         alt={note.title}
                       />
